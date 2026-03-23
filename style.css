@@ -1,0 +1,52 @@
+body {
+  background-color: white;
+  color: black;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode button {
+  background-color: #1e1e1e;
+  color: white;
+  border: 1px solid #555;
+}
+
+.dark-mode #messagesContainer div {
+  background-color: #1e1e1e;
+  color: white;
+  border: 1px solid #555;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+body {
+  background-color: white;
+  color: black;
+  transition: 0.3s;
+}
+
+.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode button {
+  background-color: #1e1e1e;
+  color: white;
+  border: 1px solid #555;
+}
+
+.dark-mode div {
+  background-color: #1e1e1e;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
