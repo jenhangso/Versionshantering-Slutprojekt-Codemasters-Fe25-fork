@@ -4,23 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Codemasters Messageboard</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <main>
+    <h1>Codemasters Messageboard</h1>
 
-  <h1>Codemasters Messageboard</h1>
+    <button id="themeToggle">Tema</button>
 
-  <form id="messageForm">
-    <input type="text" id="name" placeholder="Ditt namn">
-    <br><br>
-    <textarea id="message" placeholder="Skriv ditt meddelande"></textarea>
-    <br><br>
-    <button type="submit">Skicka</button>
-  </form>
+    <form id="messageForm">
+      <input type="text" id="name" placeholder="Ditt namn">
+      <br><br>
+      <textarea id="message" placeholder="Skriv ditt meddelande"></textarea>
+      <br><br>
+      <button type="submit">Skicka</button>
+    </form>
 
-  <p id="statusMessage"></p>
+    <p id="statusMessage"></p>
 
-  <h2>Meddelanden</h2>
-  <div id="messagesContainer"></div>
+    <h2>Meddelanden</h2>
+    <div id="messagesContainer"></div>
+  </main>
 
   <script type="module" src="js/app.js"></script>
 </body>

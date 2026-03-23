@@ -5,7 +5,8 @@ const nameInput = document.getElementById("name");
 const messageInput = document.getElementById("message");
 const statusMessage = document.getElementById("statusMessage");
 const messagesContainer = document.getElementById("messagesContainer");
-
+const themeToggle = document.getElementById("themeToggle");
+console.log(themeToggle);
 function saveMessage(name, message) {
   const messagesRef = ref(db, "messages");
 
@@ -64,3 +65,22 @@ form.addEventListener("submit", function (event) {
 });
 
 loadMessages();
+function applySavedTheme() {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+}
+
+themeToggle.addEventListener("click", function () {
+  document.body.classList.toggle("dark-mode");
+
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+});
+
+applySavedTheme();
