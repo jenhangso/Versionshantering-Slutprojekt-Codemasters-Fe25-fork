@@ -200,3 +200,40 @@ loadMessages();
 applySavedTheme();
 initUsernamePrompt();
 
+//----- Lägger till stjärnor ---// 
+
+
+  const starBtn = document.querySelector('#starsBtn');
+
+    starBtn.addEventListener('click',()=>{
+        
+        for(let i=0; i<40; i++){
+            const star = document.createElement('span');
+            star.classList.add('star');
+
+            const rect = starBtn.getBoundingClientRect();
+            star.style.left = rect.width / 2 + 'px';
+            star.style.top = rect.height / 2 + 'px';
+
+            const size = 8 + Math.random() * 30;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+
+
+            const x = (Math.random()-0.5) * 300 + 'px';
+            const y = (Math.random()-0.5) * 300 + 'px';
+
+            star.style.setProperty('--x', x);
+            star.style.setProperty('--y',y);
+
+            const colors = ["#FFD700", "#FFC700", "#FFB700"];
+            star.style.background = colors[Math.floor(Math.random()* colors.length)];
+
+            starBtn.appendChild(star);
+
+            setTimeout(()=>{
+                star.remove();
+            }, 800)
+        }
+    });
+//---------
