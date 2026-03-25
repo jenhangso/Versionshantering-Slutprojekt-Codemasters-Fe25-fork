@@ -94,6 +94,40 @@ button:hover {
   border-left: 5px solid #4f46e5;
 }
 
+/* Like button */
+.like-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent;
+    width: fit-content;
+    color: #0f172a;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.like-btn:hover {
+  background-color: transparent;
+}
+
+.thumbs-icon {
+    fill: none;
+    stroke: #4f4f4f;
+    stroke-width: 2;
+}
+
+.message-card .like-btn.active .thumbs-icon {
+    fill: #1877f2 !important;
+    stroke: #1877f2 !important;
+}
+
+.like-btn .thumbs-icon:hover {
+    stroke: #4f46e5;
+}
+
 .message-category-badge {
   display: inline-block;
   margin-bottom: 8px;
@@ -387,4 +421,71 @@ button:hover {
 
 .dark-mode .username-prompt-toggle {
   color: #a5b4fc;
+}
+
+.link-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* make translate fit navbar */
+#google_translate_element {
+  display: flex;
+  align-items: center;
+}
+
+/* style dropdown like nav button */
+.goog-te-gadget select {
+  appearance: none;
+  -webkit-appearance: none;
+
+  background: transparent;
+  color: white;
+
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* remove Google junk text */
+.goog-te-gadget span,
+.goog-logo-link {
+  display: none !important;
+}
+
+
+.goog-te-gadget span {
+  display: none !important;
+}
+
+
+/*Lägga till stjärnor*/
+
+#starsBtn {
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+
+.star {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: gold;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%,
+    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+    2% 35%, 39% 35%
+  );
+  pointer-events: none;
+  animation: explode 800ms ease-out forwards;
+  box-shadow: 0 0 10px gold;
+}
+
+@keyframes explode {
+  to {
+    transform: translate(var(--x), var(--y)) scale(0) rotate(720deg);
+    opacity: 0;
+  }
 }
