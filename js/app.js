@@ -1,6 +1,7 @@
 import { db, firestore, saveToFirestore, getFromFirestore, listenFirestore } from "./firebase.js";
 import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { initUsernamePrompt, getUsername } from "./username.js";
+import { likeMessage } from "./likeMessages.js";
 // ADAM FEATURE: weather sidebar next to messages
 import "./adam-feature.js";
 
@@ -50,11 +51,11 @@ function renderMessages(data) {
   });
 
   filteredEntries.sort((a, b) => {
-    const aTime = new Date(a.createdAt || a.timestamp || Date.now()).getTime();
-    const bTime = new Date(b.createdAt || b.timestamp || Date.now()).getTime();
+    const aTime = new Date(a.createdAt || a.timestamp || 0).getTime();
+    const bTime = new Date(b.createdAt || b.timestamp || 0).getTime();
 
     return selectedTimeSort === "asc" ? aTime - bTime : bTime - aTime;
-  });
+});
 
   filteredEntries.forEach((msg) => {
     const category = normalizeCategory(msg.category);
@@ -64,12 +65,35 @@ function renderMessages(data) {
     const div = document.createElement("div");
     div.className = `message-card ${categoryInfo.className}`;
 
+    const currentUser = getUsername();
+    const hasLiked = msg.id && currentUser && msg.likesByUsers?.[currentUser];
+
     div.innerHTML = `
       <span class="message-category-badge">${categoryInfo.label}</span>
       <h3>${msg.name}</h3>
       <p>${msg.message}</p>
-      <small>${new Date(messageDate).toLocaleString("sv-SE")}</small>
+      <div class="message-footer">
+        <button class="like-btn ${hasLiked ? 'active' : ''}">
+          <svg class="thumbs-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12l-1.1-4.89c-.19-.83-.92-1.42-1.77-1.42h-5.67l.93-4.47c.07-.34-.05-.7-.32-.93-.28-.23-.65-.33-.99-.26-.35.07-.64.33-.75.67l-2.73 7.35c-.15.41-.55.67-1 .67H8v11h10.51c.7 0 1.33-.46 1.54-1.14l2.12-7.01c.14-.46.06-.97-.24-1.38z"/>
+          </svg>
+          <span class="like-count">${msg.likes || 0}</span>
+        </button>
+        <small>${new Date(messageDate).toLocaleString("sv-SE")}</small>
+      </div>
     `;
+  
+    div.querySelector(".like-btn").onclick = (event) => {
+        event.preventDefault();
+        const user = getUsername(); 
+        
+        if (!user) {
+            return alert("Logga in för att gilla!");
+        }
+
+        console.log("Gillar meddelande:", msg.id, "som användare:", user);
+        likeMessage(msg.id, user); 
+    };
 
     messagesContainer.appendChild(div);
   });
@@ -96,6 +120,12 @@ function loadMessages() {
   onValue(messagesRef, (snapshot) => {
     const data = snapshot.val();
     messagesCache = data || {};
+
+    const messagesWithIds = Object.entries(data).map(([id, msg]) => {
+      return { ...msg, id: id };
+    });
+
+    messagesCache = messagesWithIds;
 
     if (!data) {
       messagesContainer.innerHTML = "<p>Inga meddelanden ännu</p>";
@@ -236,4 +266,3 @@ initUsernamePrompt();
             }, 800)
         }
     });
-//---------
