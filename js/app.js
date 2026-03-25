@@ -1,6 +1,8 @@
 import { db, firestore, saveToFirestore, getFromFirestore, listenFirestore } from "./firebase.js";
 import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { initUsernamePrompt, getUsername } from "./username.js";
+// ADAM FEATURE: weather sidebar next to messages
+import "./adam-feature.js";
 
 const form = document.getElementById("messageForm");
 const nameInput = document.getElementById("name");
